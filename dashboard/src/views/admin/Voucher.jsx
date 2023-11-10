@@ -150,7 +150,6 @@ const Voucher = () => {
     };
 
 
-
     useEffect(() => {
         getVoucher();
     }, []);
@@ -222,7 +221,7 @@ const Voucher = () => {
                                 </th>
 
                                 <th scope="col" className="py-3 px-4">
-                                    Tên voucher
+                                    Mã voucher
                                 </th>
                                 <th scope="col" className="py-3 px-4">
                                     Giảm giá (%)
