@@ -227,9 +227,9 @@ const Voucher = () => {
                                 <th scope="col" className="py-3 px-4">
                                     Giảm giá (%)
                                 </th>
-                                <th scope="col" className="py-3 px-4">
-                                    Số lượng
-                                </th>
+                                {/*<th scope="col" className="py-3 px-4">*/}
+                                {/*    Số lượng*/}
+                                {/*</th>*/}
                                 <th scope="col" className="py-3 px-4">
                                     Ngày hết hạn
                                 </th>
@@ -261,12 +261,12 @@ const Voucher = () => {
                                 >
                                     <span>{d.discount} %</span>
                                 </td>
-                                <td
-                                    scope="row"
-                                    className="py-1 px-4 font-medium whitespace-nowrap"
-                                >
-                                    <span>{d.stock}</span>
-                                </td>
+                                {/*<td*/}
+                                {/*    scope="row"*/}
+                                {/*    className="py-1 px-4 font-medium whitespace-nowrap"*/}
+                                {/*>*/}
+                                {/*    <span>{d.stock}</span>*/}
+                                {/*</td>*/}
                                 <td
                                     scope="row"
                                     className="py-1 px-4 font-medium whitespace-nowrap"
