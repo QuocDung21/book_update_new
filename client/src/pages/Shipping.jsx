@@ -31,8 +31,6 @@ const Shipping = () => {
     });
 
 
-
-
     const [shipping, setShipping] = useState([])
 
     const getShipping = async () => {
@@ -333,6 +331,15 @@ const Shipping = () => {
                                             </select>
                                         </div>
                                     </div>
+                                    <div className="flex flex-col gap-1 mb-2 w-full">
+                                        <div className="flex flex-col gap-1 mb-2 w-full">
+                                            <span>Mã giảm giá: </span>
+                                            <input
+                                                className="px-4 py-2  border-slate-200 outline-none border  rounded-md text-slate-600"
+
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="flex justify-between items-center">
                                         <span>Tổng thanh toán</span>
                                         <span>{formatCurrency(price + state.constShip + Math.floor(
@@ -347,8 +354,6 @@ const Shipping = () => {
                                                 state.ship_spend) /
                                             100))}</span>
                                     </div>
-
-
                                     <button
                                         onClick={placeOrder}
                                         disabled={res ? false : true}

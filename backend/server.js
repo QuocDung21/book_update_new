@@ -160,6 +160,7 @@ app.use("/api", require("./routes/home/customerAuthRoutes"));
 app.use("/api", require("./routes/dashboard/sellerRoutes"));
 app.use("/api", require("./routes/dashboard/categoryRoutes"));
 app.use("/api", require("./routes/dashboard/productRoutes"));
+app.use("/api", require("./routes/voucher/voucherRoutes"));
 app.get("/", (req, res) => res.send("Hello World!"));
 const port = process.env.PORT;
 dbConnect();

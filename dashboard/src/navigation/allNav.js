@@ -45,6 +45,13 @@ export const allNav = [
         role: "admin",
         path: "/admin/dashboard/users",
     },
+    {
+        id: 19,
+        title: "Voucher",
+        icon: <FiUsers/>,
+        role: "admin",
+        path: "/admin/dashboard/voucher",
+    },
     // {
     //   id: 5,
     //   title: "Yêu Cầu Thanh Toán",
