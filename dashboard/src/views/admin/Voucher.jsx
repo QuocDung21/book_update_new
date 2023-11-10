@@ -337,7 +337,7 @@ const Voucher = () => {
                         </div>
                         <form onSubmit={addVoucher}>
                             <div className="flex flex-col w-full gap-1 mb-3">
-                                <label htmlFor="name">Tên voucher </label>
+                                <label htmlFor="name"> Mã voucher </label>
                                 <input
                                     value={state.name}
                                     onChange={(e) => setState({...state, name: e.target.value})}
