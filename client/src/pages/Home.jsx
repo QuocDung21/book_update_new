@@ -23,9 +23,6 @@ const Home = () => {
       <div className="my-4">
         <Categorys />
       </div>
-      {/* <div className="flex justify-center ">
-        <Countdown />
-      </div> */}
       <div className="py-[45px]">
         <FeatureProducts products={products} />
       </div>
@@ -33,16 +30,16 @@ const Home = () => {
         <div className="w-[85%] flex flex-wrap mx-auto">
           <div className="grid w-full grid-cols-3 md-lg:grid-cols-2 md:grid-cols-1 gap-7">
             <div className="overflow-hidden">
-              <Products title="Sản phẩm mới" products={latest_product} />
+              <Products title="SẢN PHẨM MỚI" products={latest_product} />
             </div>
             <div className="overflow-hidden">
               <Products
-                title="Sản phẩm được đánh giá cao"
+                title="SẢN PHẨM ĐƯỢC ĐÁNH GIÁ CAO"
                 products={topRated_product}
               />
             </div>
             <div className="overflow-hidden">
-              <Products title="Sản phẩm giảm giá" products={discount_product} />
+              <Products title="SẢN PHẨM GIẢM GIÁ" products={discount_product} />
             </div>
           </div>
         </div>
@@ -51,5 +48,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;

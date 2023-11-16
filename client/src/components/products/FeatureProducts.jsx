@@ -93,7 +93,9 @@ const FeatureProducts = ({products}) => {
                     </ul>
                 </div>
                 <div className="py-3 text-slate-600 px-2">
-                    <h2 className="flex justify-center text-center">{p.name}</h2>
+                    <h2 className="flex justify-center items-center font-bold uppercase overflow-hidden max-w-xs">
+                        <span className="truncate">{p.name}</span>
+                    </h2>
                     <div className="flex justify-center  flex-col items-center gap-3">
                         <span className="text-lg  font-bold">{formatCurrency(p.price)}</span>
                         <div className="flex">
