@@ -24,8 +24,8 @@ app.use(
             "https://book-store-a8w6lgw3t-quocdung21.vercel.app/",
             "https://book-store-das-git-main-quocdung21.vercel.app/",
             "https://bookbe.vercel.app/",
-            "https://bookfe.vercel.app/"
-
+            "https://bookfe.vercel.app/",
+            "bookfe-fenf17156-quocdung21.vercel.app"
         ],
         credentials: true,
     })
