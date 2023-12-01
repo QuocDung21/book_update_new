@@ -1,6 +1,6 @@
 import axios from "axios";
 // const local = "https://book-backend-ehmv.onrender.com";
-const local = "https://book-store-server-chi.vercel.app";
+const local = "https://bookbe.vercel.app";
 
 const host = "";
 // http://localhost:3000/
