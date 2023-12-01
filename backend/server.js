@@ -1,5 +1,5 @@
 const express = require("express");
-const { dbConnect } = require("./utiles/db");
+const {dbConnect} = require("./utiles/db");
 const app = express();
 const cors = require("cors");
 const http = require("http");
@@ -9,135 +9,136 @@ require("dotenv").config();
 const socket = require("socket.io");
 var morgan = require("morgan");
 app.use(
-  morgan(":method :url :status :res[content-length] - :response-time ms")
+    morgan(":method :url :status :res[content-length] - :response-time ms")
 );
 const server = http.createServer(app);
 
 app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "https://book-store-client-alpha.vercel.app",
-      "https://book-store-das.vercel.app",
-      "https://book-store-client-ch0y0n6y8-quocdung21.vercel.app/",
-      "https://book-store-a8w6lgw3t-quocdung21.vercel.app/",
-      "https://book-store-das-git-main-quocdung21.vercel.app/",
-    ],
-    credentials: true,
-  })
+    cors({
+        origin: [
+            "http://localhost:3000",
+            "http://localhost:3001",
+            "https://book-store-client-alpha.vercel.app",
+            "https://book-store-das.vercel.app",
+            "https://book-store-client-ch0y0n6y8-quocdung21.vercel.app/",
+            "https://book-store-a8w6lgw3t-quocdung21.vercel.app/",
+            "https://book-store-das-git-main-quocdung21.vercel.app/",
+            "https://bookbe.vercel.app/"
+        ],
+        credentials: true,
+    })
 );
 
 const io = socket(server, {
-  cors: {
-    origin: "*",
-    credentials: true,
-  },
+    cors: {
+        origin: "*",
+        credentials: true,
+    },
 });
 
 var allCustomer = [];
 var allSeller = [];
 
 const addUser = (customerId, socketId, userInfo) => {
-  const checkUser = allCustomer.some((u) => u.customerId === customerId);
-  if (!checkUser) {
-    allCustomer.push({
-      customerId,
-      socketId,
-      userInfo,
-    });
-  }
+    const checkUser = allCustomer.some((u) => u.customerId === customerId);
+    if (!checkUser) {
+        allCustomer.push({
+            customerId,
+            socketId,
+            userInfo,
+        });
+    }
 };
 
 const addSeller = (sellerId, socketId, userInfo) => {
-  const chaeckSeller = allSeller.some((u) => u.sellerId === sellerId);
-  if (!chaeckSeller) {
-    allSeller.push({
-      sellerId,
-      socketId,
-      userInfo,
-    });
-  }
+    const chaeckSeller = allSeller.some((u) => u.sellerId === sellerId);
+    if (!chaeckSeller) {
+        allSeller.push({
+            sellerId,
+            socketId,
+            userInfo,
+        });
+    }
 };
 
 const findCustomer = (customerId) => {
-  return allCustomer.find((c) => c.customerId === customerId);
+    return allCustomer.find((c) => c.customerId === customerId);
 };
 const findSeller = (sellerId) => {
-  return allSeller.find((c) => c.sellerId === sellerId);
+    return allSeller.find((c) => c.sellerId === sellerId);
 };
 
 const remove = (socketId) => {
-  allCustomer = allCustomer.filter((c) => c.socketId !== socketId);
-  allSeller = allSeller.filter((c) => c.socketId !== socketId);
+    allCustomer = allCustomer.filter((c) => c.socketId !== socketId);
+    allSeller = allSeller.filter((c) => c.socketId !== socketId);
 };
 
 let admin = {};
 
 const removeAdmin = (socketId) => {
-  if (admin.socketId === socketId) {
-    admin = {};
-  }
+    if (admin.socketId === socketId) {
+        admin = {};
+    }
 };
 
 io.on("connection", (soc) => {
-  console.log("socket server is connected...");
+    console.log("socket server is connected...");
 
-  soc.on("add_user", (customerId, userInfo) => {
-    addUser(customerId, soc.id, userInfo);
-    io.emit("activeSeller", allSeller);
-    io.emit("activeCustomer", allCustomer);
-  });
-  soc.on("add_seller", (sellerId, userInfo) => {
-    addSeller(sellerId, soc.id, userInfo);
-    io.emit("activeSeller", allSeller);
-    io.emit("activeCustomer", allCustomer);
-    io.emit("activeAdmin", { status: true });
-  });
+    soc.on("add_user", (customerId, userInfo) => {
+        addUser(customerId, soc.id, userInfo);
+        io.emit("activeSeller", allSeller);
+        io.emit("activeCustomer", allCustomer);
+    });
+    soc.on("add_seller", (sellerId, userInfo) => {
+        addSeller(sellerId, soc.id, userInfo);
+        io.emit("activeSeller", allSeller);
+        io.emit("activeCustomer", allCustomer);
+        io.emit("activeAdmin", {status: true});
+    });
 
-  soc.on("add_admin", (adminInfo) => {
-    delete adminInfo.email;
-    admin = adminInfo;
-    admin.socketId = soc.id;
-    io.emit("activeSeller", allSeller);
-    io.emit("activeAdmin", { status: true });
-  });
-  
-  soc.on("send_seller_message", (msg) => {
-    const customer = findCustomer(msg.receverId);
-    if (customer !== undefined) {
-      soc.to(customer.socketId).emit("seller_message", msg);
-    }
-  });
+    soc.on("add_admin", (adminInfo) => {
+        delete adminInfo.email;
+        admin = adminInfo;
+        admin.socketId = soc.id;
+        io.emit("activeSeller", allSeller);
+        io.emit("activeAdmin", {status: true});
+    });
 
-  soc.on("send_customer_message", (msg) => {
-    const seller = findSeller(msg.receverId);
-    if (seller !== undefined) {
-      soc.to(seller.socketId).emit("customer_message", msg);
-    }
-  });
+    soc.on("send_seller_message", (msg) => {
+        const customer = findCustomer(msg.receverId);
+        if (customer !== undefined) {
+            soc.to(customer.socketId).emit("seller_message", msg);
+        }
+    });
 
-  soc.on("send_message_admin_to_seller", (msg) => {
-    const seller = findSeller(msg.receverId);
-    if (seller !== undefined) {
-      soc.to(seller.socketId).emit("receved_admin_message", msg);
-    }
-  });
+    soc.on("send_customer_message", (msg) => {
+        const seller = findSeller(msg.receverId);
+        if (seller !== undefined) {
+            soc.to(seller.socketId).emit("customer_message", msg);
+        }
+    });
 
-  soc.on("send_message_seller_to_admin", (msg) => {
-    if (admin.socketId) {
-      soc.to(admin.socketId).emit("receved_seller_message", msg);
-    }
-  });
+    soc.on("send_message_admin_to_seller", (msg) => {
+        const seller = findSeller(msg.receverId);
+        if (seller !== undefined) {
+            soc.to(seller.socketId).emit("receved_admin_message", msg);
+        }
+    });
 
-  soc.on("disconnect", () => {
-    console.log("user disconnect");
-    remove(soc.id);
-    removeAdmin(soc.id);
-    io.emit("activeAdmin", { status: false });
-    io.emit("activeSeller", allSeller);
-    io.emit("activeCustomer", allCustomer);
-  });
+    soc.on("send_message_seller_to_admin", (msg) => {
+        if (admin.socketId) {
+            soc.to(admin.socketId).emit("receved_seller_message", msg);
+        }
+    });
+
+    soc.on("disconnect", () => {
+        console.log("user disconnect");
+        remove(soc.id);
+        removeAdmin(soc.id);
+        io.emit("activeAdmin", {status: false});
+        io.emit("activeSeller", allSeller);
+        io.emit("activeCustomer", allCustomer);
+    });
 });
 
 app.use(bodyParser.json());
