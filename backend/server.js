@@ -16,14 +16,15 @@ const server = http.createServer(app);
 app.use(
     cors({
         origin: [
-            "http://localhost:3000",
-            "http://localhost:3001",
-            "https://book-store-client-alpha.vercel.app",
-            "https://book-store-das.vercel.app",
-            "https://book-store-client-ch0y0n6y8-quocdung21.vercel.app/",
-            "https://book-store-a8w6lgw3t-quocdung21.vercel.app/",
-            "https://book-store-das-git-main-quocdung21.vercel.app/",
-            "https://bookbe.vercel.app/"
+            // "http://localhost:3000",
+            // "http://localhost:3001",
+            // "https://book-store-client-alpha.vercel.app",
+            // "https://book-store-das.vercel.app",
+            // "https://book-store-client-ch0y0n6y8-quocdung21.vercel.app/",
+            // "https://book-store-a8w6lgw3t-quocdung21.vercel.app/",
+            // "https://book-store-das-git-main-quocdung21.vercel.app/",
+            // "https://bookbe.vercel.app/"
+            "*"
         ],
         credentials: true,
     })
